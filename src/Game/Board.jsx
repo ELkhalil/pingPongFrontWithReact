@@ -1,6 +1,6 @@
 import { useEffect, useRef } from "react";
-import { Player } from "./GameObjects/Player";
-import { Ball } from "./GameObjects/Ball";
+import { Player } from "./Entities/Player";
+import { Ball } from "./Entities/Ball";
 import socketIO from "socket.io-client";
 
 export default function Board() {
