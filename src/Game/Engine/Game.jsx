@@ -2,12 +2,12 @@ import { Ball } from "../Entities/Ball";
 import { Player } from "../Entities/Player";
 
 export class Game {
-  constructor(width, height, framePerSeconds, winTarget) {
+  constructor(width, height, framePerSeconds, winTarget, ctx) {
     this.width = width;
     this.height = height;
     this.framePerSeconds = framePerSeconds;
     this.loop = null;
-    this.ctx = null;
+    this.ctx = ctx;
     this.target = winTarget;
     this.player = null;
     this.computer = null;
@@ -18,11 +18,9 @@ export class Game {
     this.scoreSound = null;
     this.gameOverSound = null;
     this.preLoadSounds();
-
     this.bgImage = null;
     this.skinImage = null;
     this.preLoadImages();
-
     this.sparkX = null;
     this.sparkY = null;
   }
@@ -31,7 +29,7 @@ export class Game {
     this.player = new Player(
       0,
       (this.height - 100) / 2,
-      50,
+      10,
       100,
       0,
       "WHITE",
@@ -40,7 +38,7 @@ export class Game {
     this.computer = new Player(
       this.width - 10,
       (this.height - 100) / 2,
-      50,
+      10,
       100,
       0,
       "WHITE",
@@ -268,7 +266,6 @@ export class Game {
   }
 
   cleanupSounds() {
-    // Pause and reset sounds
     if (this.ballHitSound) {
       this.ballHitSound.pause();
       this.ballHitSound.currentTime = 0;
@@ -297,7 +294,8 @@ export class Game {
     if (this.loop) {
       clearInterval(this.loop);
     }
-    this.cleanupSounds();
-    this.cleanupImages();
+    if (this.ctx) {
+      this.ctx.clearRect(0, 0, this.width, this.height);
+    }
   }
 }
