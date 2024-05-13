@@ -1,0 +1,13 @@
+.counterText {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  font-size: 40px;
+  transform: translate(-50%, -50%);
+  border: none;
+  outline: none;
+  cursor: pointer;
+  font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+  padding: 10px 20px;
+  color: white;
+}

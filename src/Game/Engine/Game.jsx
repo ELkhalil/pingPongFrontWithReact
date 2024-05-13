@@ -267,13 +267,37 @@ export class Game {
     }, 1000 / this.framePerSeconds);
   }
 
+  cleanupSounds() {
+    // Pause and reset sounds
+    if (this.ballHitSound) {
+      this.ballHitSound.pause();
+      this.ballHitSound.currentTime = 0;
+    }
+    if (this.scoreSound) {
+      this.scoreSound.pause();
+      this.scoreSound.currentTime = 0;
+    }
+    if (this.gameOverSound) {
+      this.gameOverSound.pause();
+      this.gameOverSound.currentTime = 0;
+    }
+  }
+
+  cleanupImages() {
+    // Remove src attribute to release resources
+    if (this.bgImage) {
+      this.bgImage.src = "";
+    }
+    if (this.skinImage) {
+      this.skinImage.src = "";
+    }
+  }
+
   endGame() {
     if (this.loop) {
       clearInterval(this.loop);
     }
-    this.ctx.clearRect(0, 0, this.width, this.height);
-    this.ctx.fillStyle = "#FFF";
-    this.ctx.font = "75px fantasy";
-    this.ctx.fillText(this.winner, this.width / 2, this.height / 2);
+    this.cleanupSounds();
+    this.cleanupImages();
   }
 }
