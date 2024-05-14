@@ -40,7 +40,7 @@ export class Ball {
   }
 
   ballTopAndBottomCollision(gameHeight) {
-    if (this.y - this.radius < 3 || this.y + this.radius > gameHeight - 3) {
+    if (this.y - this.radius < 5 || this.y + this.radius > gameHeight - 5) {
       this.velocityY = -this.velocityY;
     }
   }

@@ -4,7 +4,7 @@ import { Game } from "../Engine/Game";
 import style from "../Styles/counterText.module.css";
 
 export default function BotMode({ onLeaveBotGame }) {
-  const [timerValue, setTimerValue] = useState(5);
+  const [timerValue, setTimerValue] = useState(3);
   const canvasRef = useRef(null);
   const gameRef = useRef(null);
   const counterRef = useRef(null);
@@ -12,7 +12,7 @@ export default function BotMode({ onLeaveBotGame }) {
   useEffect(() => {
     const canvas = canvasRef.current;
     const ctx = canvas.getContext("2d");
-    const game = new Game(canvas.width, canvas.height, 60, 2, ctx);
+    const game = new Game(canvas.width, canvas.height, 30, 5, ctx);
     gameRef.current = game;
     let timerInterval = null;
 

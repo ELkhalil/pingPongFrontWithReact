@@ -1,12 +1,12 @@
 export class Player {
-  constructor(x, y, width, height, score, color, moveSpeed) {
+  constructor(x, y, width, height, score, color, fractionOfHeight) {
     this.x = x;
     this.y = y;
     this.height = height;
     this.width = width;
     this.score = score;
     this.color = color;
-    this.moveSpeed = moveSpeed;
+    this.fractionOfHeight = fractionOfHeight;
   }
 
   drawPlayer(ctx) {
@@ -15,17 +15,19 @@ export class Player {
   }
 
   movePlayer(gameHeight, direction) {
+    const moveSpeed = this.fractionOfHeight * gameHeight;
+
     if (direction === "up") {
-      if (this.y - this.moveSpeed < 0) {
+      if (this.y - moveSpeed < 0) {
         this.y = 0;
       } else {
-        this.y -= this.moveSpeed;
+        this.y -= moveSpeed;
       }
     } else if (direction === "down") {
-      if (this.y + this.height + this.moveSpeed > gameHeight) {
+      if (this.y + this.height + moveSpeed > gameHeight) {
         this.y = gameHeight - this.height;
       } else {
-        this.y += this.moveSpeed;
+        this.y += moveSpeed;
       }
     }
   }
