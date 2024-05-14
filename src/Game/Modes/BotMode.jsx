@@ -12,7 +12,7 @@ export default function BotMode({ onLeaveBotGame }) {
   useEffect(() => {
     const canvas = canvasRef.current;
     const ctx = canvas.getContext("2d");
-    const game = new Game(canvas.width, canvas.height, 30, 5, ctx);
+    const game = new Game(canvas.width, canvas.height, 15, 5, ctx);
     gameRef.current = game;
     let timerInterval = null;
 

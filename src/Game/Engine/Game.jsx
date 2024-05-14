@@ -23,7 +23,8 @@ export class Game {
 
     /* Ball Settings */
     this.ballSizePercentage = 2.5;
-    this.ballSpeed = 7;
+    this.ballSpeedFactor = 0.015;
+    this.ballSpeed = Math.min(this.width, this.height) * this.ballSpeedFactor;
     this.ballVelocity = 5;
     this.ballSize =
       Math.min(this.width, this.height) * (this.ballSizePercentage / 100);
@@ -45,9 +46,9 @@ export class Game {
     this.skinImage = null;
 
     /* Effects Settings */
-    this.hitBallColor = "WHITE";
-    this.hitBallSizeX = 30;
-    this.hitBallSizeY = 10;
+    this.hitBallColor = "RED";
+    this.hitBallSizeX = Math.floor(this.ballSize * 3);
+    this.hitBallSizeY = Math.floor(this.ballSize * 2.5);
 
     /* Init Data*/
     this.initGameEntities();
@@ -108,18 +109,21 @@ export class Game {
   drawFlash(ctx, x, y) {
     ctx.save();
     ctx.beginPath();
-    ctx.arc(
-      x + this.ball.radius,
-      y + this.ball.radius,
-      this.hitBallSizeX,
-      this.hitBallSizeY,
+    ctx.ellipse(
+      x,
+      y,
+      this.hitBallSizeX / 2,
+      this.hitBallSizeY / 2,
+      0,
+      0,
       Math.PI * 2
     );
     ctx.fillStyle = this.hitBallColor;
-    ctx.globalAlpha = 0.4;
+    ctx.globalAlpha = 0.7;
     ctx.fill();
     ctx.restore();
   }
+
   drawPlayerShadow(ctx) {
     ctx.fillStyle = "rgba(0, 0, 0, 0.1)";
     const shadowOffsetX = 3;
@@ -254,7 +258,11 @@ export class Game {
 
   update() {
     this.updateScores();
-    this.ball.ballTopAndBottomCollision(this.height);
+    this.ball.ballTopAndBottomCollision(
+      this.height,
+      this.ctx,
+      this.hitBallSizeX
+    );
     this.ball.moveBall();
     this.botControlOn();
     let player =
